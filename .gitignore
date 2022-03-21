@@ -1,0 +1,12 @@
+Packages
+.build
+xcuserdata
+*.xcodeproj
+DerivedData/
+.DS_Store
+.swiftpm
+Package.resolved
+.env
+launch.json
+.vscode
+*/launch.json
