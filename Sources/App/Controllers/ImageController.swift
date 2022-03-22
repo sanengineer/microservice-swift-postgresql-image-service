@@ -15,7 +15,7 @@ struct ImageController: RouteCollection {
         let imageAuthUser = image.grouped(userMiddleware)
     
         imageAuthMidUser.get(use: index)
-        imageAuthMidUser.delete(use: delete)
+        imageAuthSuperUser.delete(use: delete)
         imageAuthUser.get(":user_id", use:indexByUserId)
         image.on(.POST, body: .collect(maxSize: "10mb"), use: create)
         imageAuthUser.on(.PUT, ":user_id", body: .collect(maxSize: "10mb"), use: updateByUserId)   
