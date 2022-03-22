@@ -16,7 +16,7 @@ struct ImageController: RouteCollection {
     
         imageAuthMidUser.get(use: index)
         imageAuthSuperUser.delete(use: delete)
-        imageAuthUser.get(use:indexByUserId)
+        imageAuthUser.get(":user_id",use:indexByUserId)
         image.on(.POST, body: .collect(maxSize: "10mb"), use: create)
         imageAuthUser.on(.PUT, ":user_id", body: .collect(maxSize: "10mb"), use: updateByUserId)   
     }
@@ -26,9 +26,12 @@ struct ImageController: RouteCollection {
     }
 
     func indexByUserId(req: Request) throws -> EventLoopFuture<Image>{
+        guard let user_id = req.parameters.get("user_id", as: UUID.self)  else {
+            throw Abort(.badRequest)
+        }
         let query = try req.query.decode(ImageQuery.self)
         return Image.query(on: req.db)
-                .filter(\.$user_id == query.user_id)
+                .filter(\.$user_id == user_id)
                 .filter(\.$type == query.type)
                 .first().tryFlatMap({ (image) -> EventLoopFuture<Image> in
                     if let image = image {

@@ -69,11 +69,9 @@ final class ImageType: Content, Codable {
 }
 
 final class ImageQuery: Content, Codable {
-    var user_id: UUID
     var type: String
 
-    init(user_id: UUID, type: String) {
-        self.user_id = user_id
+    init(type: String) {
         self.type = type
     }
 }
