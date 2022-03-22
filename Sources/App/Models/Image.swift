@@ -18,6 +18,9 @@ final class Image: Model, Content, Codable {
 
     @Field(key:"signature")
     var signature: String?
+
+    @Field(key: "type")
+    var type: String?
     
     @Field(key: "user_id")
     var user_id: UUID?
@@ -35,12 +38,14 @@ final class Image: Model, Content, Codable {
          asset_id: String? = nil,
          public_id: String? = nil,
          signature: String? = nil,
+         type: String? = nil,
          user_id: UUID? = nil) {
         self.id = id
         self.secure_url = secure_url
         self.asset_id = asset_id
         self.public_id = public_id
         self.signature = signature
+        self.type = type
         self.user_id = user_id
     }
 }
@@ -55,11 +60,31 @@ final class ImageFile: Content, Codable {
     }
 }
 
+final class ImageType: Content, Codable {
+    var type: String
+   
+    init(type: String) {
+        self.type = type
+    }
+}
+
 
 final class UpdateImage: Content, Codable {
     var url: String
 
     init(url: String) {
         self.url = url
+    }
+}
+
+final class ImageDelete: Content, Codable {
+    var id: UUID
+    var type: String
+    var user_id: UUID
+
+    init(id: UUID, type: String, user_id: UUID) {
+        self.id = id
+        self.type = type
+        self.user_id = user_id
     }
 }

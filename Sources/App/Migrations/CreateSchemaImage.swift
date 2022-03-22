@@ -6,6 +6,7 @@ struct CreateSchemaImage: Migration {
             .id()
             .field("url", .string)
             .field("user_id", .uuid, .required)
+            .field("type", .string, .required)
             .field("asset_id", .string)
             .field("public_id",.string)
             .field("signature", .string)
